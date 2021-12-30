@@ -64,19 +64,18 @@ Regular elements can easily be selected using the syntax used with `document.que
 
 ```js
 import { mount } from "@vue/test-utils"
-import '@testing-library/jest-dom'
 import Parent from "@/components/Parent.vue"
 
 describe("Parent", () => {
   it("does not render a span", () => {
     const wrapper = mount(Parent)
 
-    expect(wrapper.find("span").element).not.toBeVisible()
+    expect(wrapper.find("span").isVisible()).toBe(false)
   })
 })
 ```
 
-Since `v-show="showSpan"` defaults to `false`, we expect the found `<span>` element's not to be visible. We are using the awesome `@testing-library/jest-dom` matchers to validate this - determining visibility is tricky business, so Vue Test Utils leaves it up to another battle tested library. The tests passes when run with `yarn test:unit`. Next, a test around the case when `showSpan` is `true`.
+Since `v-show="showSpan"` defaults to `false`, we expect the found `<span>` element's not to be visible. The test passes when run with `yarn test:unit`. Next, a test around the case when `showSpan` is `true`.
 
 ```js
 it("does render a span", () => {
@@ -86,7 +85,7 @@ it("does render a span", () => {
     }
   })
 
-  expect(wrapper.find("span").element).toBeVisible()
+  expect(wrapper.find("span").isVisible()).toBe(true)
 })
 ```
 
